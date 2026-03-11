@@ -2,7 +2,7 @@ import streamlit as st
 from supabase import create_client
 
 # استبدل بالبيانات التي نسختها من Supabase Settings -> API
-URL = "tblfgqeqryudpabwwhyc"
+URL = "https://tblfgqeqryudpabwwhyc.supabase.co"
 KEY = "tblfgqeqryudpabwwhyc"
 supabase = create_client(URL, KEY)
 
