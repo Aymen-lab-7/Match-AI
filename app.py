@@ -3,7 +3,7 @@ from supabase import create_client
 
 # استبدل بالبيانات التي نسختها من Supabase Settings -> API
 URL = "https://tblfgqeqryudpabwwhyc.supabase.co"
-KEY = "tblfgqeqryudpabwwhyc"
+KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRibGZncWVxcnl1ZHBhYnd3aHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjc4MzMsImV4cCI6MjA4ODg0MzgzM30.FexbPZYgH0cFq_xrysx89m6ZUNXjP6GKF7tqY5sbtlQ"
 supabase = create_client(URL, KEY)
 
 st.set_page_config(page_title="Match AI", layout="centered")
