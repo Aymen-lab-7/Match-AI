@@ -12,27 +12,30 @@ st.title("Match AI 🧬")
 
 menu = st.tabs(["🔍 البحث", "💬 المجتمع"])
 
-with menu[0]:
-    search = st.text_input("ابحثي عن منتج (مثلاً: C-Firma)")
-    if st.button("ابحث عن البديل"):
-        res = supabase.table("products").select("*").ilike("name", f"%{search}%").execute()
-        if res.data:
-            for item in res.data:
-                st.success(f"البديل: {item['name']}")
-                st.info(f"السعر: {item['price']}$")
-        else:
-            st.warning("لم نجد البديل بعد!")
-
 with menu[1]:
-    st.subheader("دردشة مجتمع Match")
-    user = st.text_input("الاسم")
-    msg = st.text_area("الرسالة")
+    st.subheader("💬 دردشة مجتمع Match")
+    user = st.text_input("الاسم المستعار")
+    msg = st.text_area("اكتبي رسالتكِ هنا...")
+    
     if st.button("إرسال"):
         if user and msg:
-            supabase.table("community_chat").insert({"username": user, "message": msg}).execute()
-            st.rerun()
-    
-    chats = supabase.table("community_chat").select("*").order("created_at", desc=True).limit(5).execute()
-    for c in chats.data:
-        st.write(f"👤 **{c['username']}**: {c['message']}")
-      
+            try:
+                supabase.table("community_chat").insert({"username": user, "message": msg}).execute()
+                st.success("تم إرسال رسالتكِ بنجاح! ✨")
+                st.rerun()
+            except Exception as e:
+                st.error(f"عذراً، هناك مشكلة تقنية: {e}")
+
+    st.divider()
+    st.write("🕒 أحدث الرسائل:")
+    try:
+        # محاولة عرض آخر 5 رسائل بدون ترتيب معقد لتجنب الأخطاء
+        chats = supabase.table("community_chat").select("*").limit(5).execute()
+        if chats.data:
+            for c in chats.data:
+                st.info(f"👤 **{c.get('username', 'مجهولة')}**: {c.get('message', '')}")
+        else:
+            st.write("لا توجد رسائل بعد، كوني أول من يشارك! 🌸")
+    except:
+        st.warning("الدردشة قيد التحديث، يمكنكِ المحاولة لاحقاً.")
+        
