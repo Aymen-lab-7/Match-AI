@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import Script from "next/script";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SkinDupe | Match AI",
-  description: "Visual Recognition Engine for Skincare and Fashion",
+  title: "Match AI | Intelligent Dupe Search",
+  description: "Discover affordable alternatives for your favorite products using AI.",
+  // ربط الحساب بـ Impact للبدء في جني العمولات 💰
+  verification: {
+    other: {
+      "impact-site-verification": ["448ccace-d7a0-442b-95b1-4f0414f87f50"],
+    },
+  },
 };
 
 export default function RootLayout({
@@ -25,18 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* إضافة مكتبة ml5.js لتمكين الذكاء الاصطناعي المحلي (Local AI) */}
-        {/* هذا يحل مشكلة الـ 404 وقيود الـ API في منطقتك */}
-        <Script 
-          src="https://unpkg.com/ml5@latest/dist/ml5.min.js" 
-          strategy="beforeInteractive"
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
-      >
-        {children}
+      <body className={inter.className}>
+        <main className="min-h-screen bg-black text-white">
+          {/* يمكنك إضافة Navbar هنا لاحقاً */}
+          {children}
+        </main>
       </body>
     </html>
   );
